@@ -1,0 +1,54 @@
+<div class="form-container">
+  <h2 class="mb-4">{{ modeModification ? 'Modifier un auteur' : 'Ajouter un auteur' }}</h2>
+
+  <div *ngIf="erreur" class="alert alert-danger">
+    {{ erreur }}
+  </div>
+
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
+
+  <div *ngIf="chargementAuteur" class="alert alert-secondary" role="status">
+    Chargement des informations de l’auteur...
+  </div>
+
+  <form *ngIf="!chargementAuteur && !erreur" (ngSubmit)="ajouterAuteur()" #auteurForm="ngForm">
+    <div class="mb-3">
+      <label for="prenom" class="form-label">Prénom</label>
+
+      <input
+        id="prenom"
+        name="prenom"
+        type="text"
+        class="form-control"
+        [(ngModel)]="prenom"
+        required
+        placeholder="Prénom de l’auteur">
+    </div>
+
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+
+      <input
+        id="nom"
+        name="nom"
+        type="text"
+        class="form-control"
+        [(ngModel)]="nom"
+        required
+        placeholder="Nom de l’auteur">
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary me-2"
+      [disabled]="enregistrement || chargementAuteur || !auteurForm.valid">
+      {{ enregistrement ? 'Enregistrement...' : (modeModification ? 'Enregistrer les modifications' : 'Ajouter') }}
+    </button>
+
+    <a routerLink="/auteurs" class="btn btn-secondary">
+      Annuler
+    </a>
+  </form>
+</div>

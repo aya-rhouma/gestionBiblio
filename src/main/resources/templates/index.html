@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bibliothèque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Biblio<span style="color:#a5b4fc">Tech</span></a>
+    <div class="nav-links">
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/auteurs}">Auteurs</a>
+        <a th:href="@{/livres}">Livres</a>
+    </div>
+</nav>
+
+<main class="container home-page">
+    <section class="home-intro">
+        <span class="eyebrow">Votre espace bibliothèque</span>
+        <h1>Gestion de la bibliothèque</h1>
+        <p class="subtitle">Retrouvez vos livres et auteurs en un seul endroit.</p>
+    </section>
+
+    <section class="stats" aria-label="Consulter les collections">
+        <a class="card stat-card" th:href="@{/livres}">
+            <span class="stat-icon" aria-hidden="true">📚</span>
+            <span class="stat-label">Consulter les livres</span>
+            <span class="stat-number" th:text="${nombreLivres}">0</span>
+            <span class="stat-link">Voir la collection <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="card stat-card" th:href="@{/auteurs}">
+            <span class="stat-icon" aria-hidden="true">✍️</span>
+            <span class="stat-label">Consulter les auteurs</span>
+            <span class="stat-number" th:text="${nombreAuteurs}">0</span>
+            <span class="stat-link">Voir les auteurs <span aria-hidden="true">→</span></span>
+        </a>
+    </section>
+</main>
+</body>
+</html>

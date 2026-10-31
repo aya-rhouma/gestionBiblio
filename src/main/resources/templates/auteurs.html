@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion des auteurs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Biblio<span style="color:#a5b4fc">Tech</span></a>
+    <div class="nav-links">
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/auteurs}">Auteurs</a>
+        <a th:href="@{/livres}">Livres</a>
+    </div>
+</nav>
+
+<main class="container">
+    <div class="page-header">
+        <div>
+            <h1>Gestion des auteurs</h1>
+            <p class="subtitle">Consultez et gérez les auteurs de la bibliothèque.</p>
+            <p class="subtitle" style="margin-top:8px" th:text="|${#lists.size(auteurs)} auteur(s) enregistré(s)|"></p>
+        </div>
+        <a th:href="@{/auteurs/nouveau}" class="btn btn-primary">
+            + Ajouter un auteur
+        </a>
+    </div>
+
+    <div th:if="${erreur}" class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+
+        <div class="alert-content">
+            <span th:text="${erreur}"></span>
+
+            <a th:if="${auteurSelectionne != null}"
+               th:href="@{/livres(auteurId=${auteurSelectionne.id})}"
+               class="btn btn-books">
+               📚 Consulter les livres de
+                <span th:text="${auteurSelectionne.prenom + ' ' + auteurSelectionne.nom}"></span>
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${succes}" class="alert alert-success">
+        <span class="alert-icon">✓</span>
+        <span th:text="${succes}"></span>
+    </div>
+
+    <div class="card">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="auteur : ${auteurs}">
+                    <td th:text="${auteur.id}"></td>
+                    <td th:text="${auteur.nom}"></td>
+                    <td th:text="${auteur.prenom}"></td>
+                    <td>
+                        <div class="actions">
+                            <a class="btn btn-warning"
+                               th:href="@{/auteurs/{id}/modifier(id=${auteur.id})}">
+                                Modifier
+                            </a>
+
+                            <form class="inline"
+                                  th:action="@{/auteurs/{id}/supprimer(id=${auteur.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Supprimer cet auteur ?');">
+                                <button class="btn btn-danger" type="submit">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(auteurs)}">
+                    <td colspan="4" class="empty-state">
+                        Aucun auteur enregistré.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a th:href="@{/}" class="btn btn-secondary">Retour à l'accueil</a>
+</main>
+</body>
+</html>

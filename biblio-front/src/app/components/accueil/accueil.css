@@ -1,0 +1,13 @@
+:host { display: block; max-width: 1050px; margin: 8vh auto 0; }
+.welcome { margin: 0 0 2rem; }
+.eyebrow { color: #4f46e5; font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { margin: .55rem 0; color: #172033; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -.045em; }
+.welcome p { color: #64748b; font-size: 1.05rem; }
+.collection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.collection-card { display: flex; min-height: 245px; flex-direction: column; align-items: flex-start; padding: 1.6rem; border: 1px solid #e2e8f0; border-radius: 1.1rem; color: #172033; background: white; box-shadow: 0 12px 32px #0f172a0c; text-decoration: none; transition: transform .18s, box-shadow .18s, border-color .18s; }
+.collection-card:hover { transform: translateY(-4px); border-color: #c7d2fe; box-shadow: 0 18px 38px #4f46e51c; }
+.collection-icon { display: grid; width: 3rem; height: 3rem; place-items: center; border-radius: .9rem; background: #eef2ff; font-size: 1.4rem; }
+.collection-title { margin-top: 1.1rem; font-size: 1.05rem; font-weight: 700; }
+.collection-count { color: #4f46e5; font-size: 2.6rem; font-weight: 800; line-height: 1.2; }
+.collection-link { margin-top: auto; color: #4338ca; font-size: .9rem; font-weight: 700; }
+@media (max-width: 650px) { :host { margin-top: 2rem; } .collection-grid { grid-template-columns: 1fr; } .collection-card { min-height: 215px; } }

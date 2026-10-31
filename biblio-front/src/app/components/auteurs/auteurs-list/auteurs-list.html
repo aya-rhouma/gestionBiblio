@@ -1,0 +1,68 @@
+
+<div class="auteurs-page">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des auteurs</h2>
+
+    <a routerLink="/ajout-auteur" class="btn btn-primary">
+      Ajouter un auteur
+    </a>
+  </div>
+
+  <div *ngIf="chargement" class="alert alert-secondary">
+    Chargement des auteurs...
+  </div>
+
+  <div *ngIf="erreur" class="alert alert-danger">
+    {{ erreur }}
+
+    <button *ngIf="!auteurBloque"
+      class="btn btn-outline-danger btn-sm ms-2"
+      (click)="chargerAuteurs()">
+      Réessayer
+    </button>
+    <a *ngIf="auteurBloque" class="btn btn-outline-primary btn-sm ms-2"
+       [routerLink]="['/livres']" [queryParams]="{ auteurId: auteurBloque.id, supprimerAuteur: true }">
+      Consulter les livres de {{ auteurBloque.prenom }} {{ auteurBloque.nom }}
+    </a>
+  </div>
+
+  <div *ngIf="succes" class="alert alert-success" role="status">{{ succes }}</div>
+
+  <div *ngIf="!chargement && !erreur">
+    <p class="text-muted">
+      Nombre total d'auteurs : {{ auteurs.length }}
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let auteur of auteurs">
+          <td>{{ auteur.id }}</td>
+          <td>{{ auteur.prenom }}</td>
+          <td>{{ auteur.nom }}</td>
+          <td>
+            <a class="btn btn-warning btn-sm me-2" [routerLink]="['/modifier-auteur', auteur.id]">Modifier</a>
+            <button class="btn btn-danger btn-sm" type="button" (click)="supprimerAuteur(auteur)">Supprimer</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="auteurs.length === 0">
+          <td colspan="4" class="text-center">
+            Aucun auteur trouvé.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

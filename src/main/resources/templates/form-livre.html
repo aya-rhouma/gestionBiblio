@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Livre</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Biblio<span style="color:#a5b4fc">Tech</span></a>
+    <div class="nav-links">
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/auteurs}">Auteurs</a>
+        <a th:href="@{/livres}">Livres</a>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="card form-card">
+        <h1 th:text="${titreFormulaire}">Livre</h1>
+        <p class="subtitle">Renseignez les informations du livre.</p>
+
+        <div th:if="${#lists.isEmpty(auteurs)}" class="card">
+            Aucun auteur disponible. Ajoutez d'abord un auteur.
+            <a th:href="@{/auteurs/nouveau}" class="btn btn-primary">
+                Ajouter un auteur
+            </a>
+        </div>
+
+        <form th:unless="${#lists.isEmpty(auteurs)}"
+              th:action="${formAction}" th:object="${livre}" method="post">
+
+            <div class="form-group">
+                <label for="titre">Titre</label>
+                <input class="form-control" id="titre" type="text"
+                       th:field="*{titre}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input class="form-control" id="isbn" type="text"
+                       th:field="*{isbn}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="auteurId">Auteur</label>
+                <select class="form-control" id="auteurId" name="auteur.id" required>
+                    <option value="">-- Choisir un auteur --</option>
+                    <option th:each="auteur : ${auteurs}"
+                            th:value="${auteur.id}"
+                            th:text="${auteur.nom + ' ' + auteur.prenom}"
+                            th:selected="${livre.auteur != null and livre.auteur.id == auteur.id}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a th:href="@{/livres}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

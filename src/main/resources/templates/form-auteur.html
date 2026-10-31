@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Auteur</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Biblio<span style="color:#a5b4fc">Tech</span></a>
+    <div class="nav-links">
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/auteurs}">Auteurs</a>
+        <a th:href="@{/livres}">Livres</a>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="card form-card">
+        <h1 th:text="${titreFormulaire}">Auteur</h1>
+        <p class="subtitle">Renseignez les informations de l'auteur.</p>
+
+        <form th:action="${formAction}" th:object="${auteur}" method="post">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input class="form-control" id="nom" type="text"
+                       th:field="*{nom}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input class="form-control" id="prenom" type="text"
+                       th:field="*{prenom}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a th:href="@{/auteurs}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

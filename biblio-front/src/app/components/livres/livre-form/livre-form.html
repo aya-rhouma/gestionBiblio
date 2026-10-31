@@ -1,0 +1,95 @@
+
+<div class="form-container">
+
+  <h2 class="mb-4">
+    {{ modeModification ? 'Modifier un livre' : 'Ajouter un livre' }}
+  </h2>
+
+  <div *ngIf="erreur" class="alert alert-danger">
+    {{ erreur }}
+
+    <button
+      *ngIf="!chargementAuteurs"
+      type="button"
+      class="btn btn-outline-danger btn-sm ms-2"
+      (click)="chargerAuteurs()">
+      Réessayer
+    </button>
+  </div>
+
+  <div *ngIf="chargementAuteurs || chargementLivre"
+       class="alert alert-secondary">
+    Chargement des {{ chargementAuteurs ? 'auteurs' : 'informations du livre' }}...
+  </div>
+
+  <div *ngIf="message" class="alert alert-success">
+    {{ message }}
+  </div>
+
+  <form
+    *ngIf="!chargementAuteurs && !chargementLivre && !erreur"
+    (ngSubmit)="enregistrerLivre()"
+    #livreForm="ngForm">
+
+    <div class="mb-3">
+      <label for="titre" class="form-label">Titre</label>
+      <input
+        id="titre"
+        name="titre"
+        type="text"
+        class="form-control"
+        [(ngModel)]="titre"
+        required
+        placeholder="Titre du livre">
+    </div>
+
+    <div class="mb-3">
+      <label for="isbn" class="form-label">ISBN</label>
+      <input
+        id="isbn"
+        name="isbn"
+        type="text"
+        class="form-control"
+        [(ngModel)]="isbn"
+        required
+        placeholder="Numéro ISBN">
+    </div>
+
+    <div class="mb-3">
+      <label for="auteur" class="form-label">Auteur</label>
+
+      <select
+        id="auteur"
+        name="auteur"
+        class="form-select"
+        [(ngModel)]="auteurId"
+        required>
+
+        <option value="">-- Sélectionner un auteur --</option>
+
+        <option
+          *ngFor="let auteur of auteurs"
+          [value]="auteur.id">
+          {{ auteur.prenom }} {{ auteur.nom }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="auteurs.length === 0" class="alert alert-warning">
+      Aucun auteur disponible. Ajoutez d'abord un auteur.
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary me-2"
+      [disabled]="enregistrement || auteurs.length === 0 || !livreForm.valid">
+      {{ enregistrement
+      ? 'Enregistrement...'
+      : (modeModification ? 'Enregistrer les modifications' : 'Ajouter') }}
+    </button>
+
+    <a routerLink="/livres" class="btn btn-secondary">
+      Annuler
+    </a>
+  </form>
+</div>

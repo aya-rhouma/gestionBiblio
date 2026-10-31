@@ -1,0 +1,27 @@
+<section class="welcome">
+  <span class="eyebrow">Votre espace bibliothèque</span>
+  <h1>Bienvenue dans votre bibliothèque</h1>
+  <p>Consultez et gérez simplement votre collection de livres et ses auteurs.</p>
+</section>
+
+<div *ngIf="chargementLivres || chargementAuteurs" class="alert alert-secondary">Chargement des collections...</div>
+<div *ngIf="erreur" class="alert alert-danger" role="alert">
+  {{ erreur }}
+  <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="chargerCompteurs()">Réessayer</button>
+</div>
+
+<section class="collection-grid" aria-label="Collections de la bibliothèque">
+  <a class="collection-card" routerLink="/livres">
+    <span class="collection-icon" aria-hidden="true">📚</span>
+    <span class="collection-title">Consulter les livres</span>
+    <span class="collection-count">{{ chargementLivres ? '…' : (erreurLivres ? '—' : nombreLivres) }}</span>
+    <span class="collection-link">Accéder à la collection <span aria-hidden="true">→</span></span>
+  </a>
+
+  <a class="collection-card" routerLink="/auteurs">
+    <span class="collection-icon" aria-hidden="true">✍️</span>
+    <span class="collection-title">Consulter les auteurs</span>
+    <span class="collection-count">{{ chargementAuteurs ? '…' : (erreurAuteurs ? '—' : nombreAuteurs) }}</span>
+    <span class="collection-link">Accéder aux auteurs <span aria-hidden="true">→</span></span>
+  </a>
+</section>
