@@ -78,7 +78,3 @@ L'application Angular est disponible à l'adresse `http://localhost:4200`. Le ba
 | `POST` | `/api/auteurs` | Ajouter un auteur |
 | `PUT` | `/api/auteurs/{id}` | Modifier un auteur |
 | `DELETE` | `/api/auteurs/{id}` | Supprimer un auteur sans livres associés |
-
-## Dépôt GitHub
-
-Le fichier `.gitignore` exclut les dépendances et fichiers générés. Vérifiez avant chaque push qu'aucun mot de passe ou fichier contenant des secrets n'est ajouté au dépôt.
